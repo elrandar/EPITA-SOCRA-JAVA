@@ -15,31 +15,50 @@ import com.epita.socra.app.tools.IOAdapter;
  * Unit test for simple App.
  */
 public class AppTest {
-    /**
-     * Rigorous Test.
-     */
-    @Test
-    public void givenAMock_WhenRunningMain_ThenCheckOuputs() {
-        IOAdapter mock = mock(IOAdapter.class);
-        when(mock.read()).thenReturn("TEST");
-        App app = new App(mock);
-        app.run();
-
-        verify(mock).write("Hello, what's your name ?");
-        verify(mock).write(argThat(message -> message.contains("TEST")));
-
-    }
-
 
     @Test
-    public void digitTest() {
-
+    public void digit() {
         IOAdapter mock = mock(IOAdapter.class);
         when(mock.read()).thenReturn("3");
         App app = new App(mock);
-        app.run();
+        app.exec();
 
         verify(mock).write("Input positive number :");
-        verify(mock).write(argThat(message -> message.contains("...__")));
+        verify(mock).write(argThat(message -> message.equals("...__")));
+    }
+
+    @Test
+    public void basicNumber() {
+        IOAdapter mock = mock(IOAdapter.class);
+        when(mock.read()).thenReturn("123");
+        App app = new App(mock);
+        app.exec();
+
+        verify(mock).write("Input positive number :");
+        verify(mock).write(argThat(message -> message.equals(".____..___...__")));
+    }
+
+    @Test
+    public void negativeNumber()
+    {
+        IOAdapter mock = mock(IOAdapter.class);
+        when(mock.read()).thenReturn("-57");
+        App app = new App(mock);
+        app.exec();
+
+        verify(mock).write("Input positive number :");
+        verify(mock).write(argThat(message -> message.equals("number cannot be negative.")));
+    }
+
+    @Test
+    public void notANumber()
+    {
+        IOAdapter mock = mock(IOAdapter.class);
+        when(mock.read()).thenReturn("bonjour ici");
+        App app = new App(mock);
+        app.exec();
+
+        verify(mock).write("Input positive number :");
+        verify(mock).write(argThat(message -> message.equals("input must be a valid positive number.")));
     }
 }

@@ -2,8 +2,7 @@ package com.epita.socra.app;
 
 import com.epita.socra.app.tools.*;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.security.InvalidParameterException;
 
 /**
  * Hello world!
@@ -31,17 +30,23 @@ public final class App {
         application.run();
     }
 
-    /**
-     *
-     */
-    private String toMorse(String number) {
-
-    }
-
-
-    public void run(){
+    public void exec()
+    {
         adapter.write("Input positive number :");
         String number = adapter.read();
-        adapter.write(toMorse(number));
+        try {
+            adapter.write(MorseConverter.toMorse(number));
+        }
+        catch (InvalidParameterException e)
+        {
+            adapter.write(e.getMessage());
+        }
+    }
+
+    public void run(){
+        while (true)
+        {
+            exec();
+        }
     }
 }
