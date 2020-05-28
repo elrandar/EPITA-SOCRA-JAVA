@@ -32,13 +32,12 @@ public final class App {
 
     public void exec()
     {
-        adapter.write("Input positive number :");
+        adapter.write("Input positive number or morse encoded positive number :");
         String number = adapter.read();
         try {
-            adapter.write(MorseConverter.toMorse(number));
+            adapter.write(MorseConverter.convert(number));
         }
-        catch (InvalidParameterException e)
-        {
+        catch (InvalidParameterException e) {
             adapter.write(e.getMessage());
         }
     }

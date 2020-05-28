@@ -23,7 +23,7 @@ public class AppTest {
         App app = new App(mock);
         app.exec();
 
-        verify(mock).write("Input positive number :");
+        verify(mock).write("Input positive number or morse encoded positive number :");
         verify(mock).write(argThat(message -> message.equals("...__")));
     }
 
@@ -34,7 +34,7 @@ public class AppTest {
         App app = new App(mock);
         app.exec();
 
-        verify(mock).write("Input positive number :");
+        verify(mock).write("Input positive number or morse encoded positive number :");
         verify(mock).write(argThat(message -> message.equals(".____..___...__")));
     }
 
@@ -46,7 +46,7 @@ public class AppTest {
         App app = new App(mock);
         app.exec();
 
-        verify(mock).write("Input positive number :");
+        verify(mock).write("Input positive number or morse encoded positive number :");
         verify(mock).write(argThat(message -> message.equals("number cannot be negative.")));
     }
 
@@ -58,7 +58,31 @@ public class AppTest {
         App app = new App(mock);
         app.exec();
 
-        verify(mock).write("Input positive number :");
+        verify(mock).write("Input positive number or morse encoded positive number :");
         verify(mock).write(argThat(message -> message.equals("input must be a valid positive number.")));
+    }
+
+    @Test
+    public void validMorse()
+    {
+        IOAdapter mock = mock(IOAdapter.class);
+        when(mock.read()).thenReturn("..___");
+        App app = new App(mock);
+        app.exec();
+
+        verify(mock).write("Input positive number or morse encoded positive number :");
+        verify(mock).write(argThat(message -> message.equals("2")));
+    }
+
+    @Test
+    public void morseInvalidLength()
+    {
+        IOAdapter mock = mock(IOAdapter.class);
+        when(mock.read()).thenReturn("...___");
+        App app = new App(mock);
+        app.exec();
+
+        verify(mock).write("Input positive number or morse encoded positive number :");
+        verify(mock).write(argThat(message -> message.equals("Morse string is not a digit or number")));
     }
 }
