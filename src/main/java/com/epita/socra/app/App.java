@@ -2,10 +2,15 @@ package com.epita.socra.app;
 
 import com.epita.socra.app.tools.*;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Hello world!
  */
 public final class App {
+
+
     private IOAdapter adapter;
 
     private App() {
@@ -18,7 +23,7 @@ public final class App {
 
     /**
      * Says hello to the world.
-     * 
+     *
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
@@ -26,9 +31,17 @@ public final class App {
         application.run();
     }
 
+    /**
+     *
+     */
+    private String toMorse(String number) {
+
+    }
+
+
     public void run(){
-        adapter.write("Hello, what's your name ?");
-        String name = adapter.read();
-        adapter.write("Nice to meet you, " + name + " !");
+        adapter.write("Input positive number :");
+        String number = adapter.read();
+        adapter.write(toMorse(number));
     }
 }

@@ -29,4 +29,17 @@ public class AppTest {
         verify(mock).write(argThat(message -> message.contains("TEST")));
 
     }
+
+
+    @Test
+    public void digitTest() {
+
+        IOAdapter mock = mock(IOAdapter.class);
+        when(mock.read()).thenReturn("3");
+        App app = new App(mock);
+        app.run();
+
+        verify(mock).write("Input positive number :");
+        verify(mock).write(argThat(message -> message.contains("...__")));
+    }
 }
